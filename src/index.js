@@ -1,20 +1,14 @@
-// import App from './App';
-import './index.css';
+import React from 'react'
+import { render } from 'react-snapshot'
+import App from './App'
+import './index.css'
 
-import { SyntaxError, parse } from './mysql_response'
+const rootEl = document.getElementById('root')
+render(<App />, rootEl)
 
-let textarea = document.getElementById("input")
-let result = document.getElementById("result")
-
-let handleChange = () => {
-  try {
-    result.textContent = parse(textarea.value)
-    console.log(parse(textarea.value))
-  } catch (e) {
-    console.log(e)
-  }
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default
+    render(<NextApp />, rootEl)
+  })
 }
-
-textarea.addEventListener("change", handleChange)
-textarea.addEventListener("click", handleChange)
-textarea.addEventListener("keyup", handleChange)

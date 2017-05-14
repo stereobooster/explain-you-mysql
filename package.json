@@ -5,7 +5,11 @@
   "homepage": "https://stereobooster.github.io/explain-you-mysql",
   "dependencies": {
     "gh-pages": "^0.12.0",
-    "pegjs": "^0.10.0"
+    "pegjs": "^0.10.0",
+    "react": "^15.5.4",
+    "react-snapshot": "^1.0.4",
+    "react-toolbox": "^2.0.0-beta.8",
+    "react-toolbox-themr": "^1.0.2"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
@@ -16,6 +20,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "toolbox": "react-toolbox-themr"
   }
 }
