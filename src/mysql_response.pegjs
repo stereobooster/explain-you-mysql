@@ -2,7 +2,7 @@ QueryOutput
   = empty QueryRow* FinalRow? empty
 
 FinalRow
-  = rows:Integer " row" [s]? " in set, " warnings:Integer " warning" [s]? " (" [0-9.]* " sec)" nl? { return {rows: rows, warnings: warnings} }
+  = rows:Integer " row" [s]? " in set" ", "? warnings:Integer? " warning"? [s]? " (" [0-9.]* " sec)" nl? { return {rows: rows, warnings: warnings} }
 
 Identifier
   = res: [A-Za-z_0-9]* { return res.join("") }
@@ -11,7 +11,7 @@ Value
   = res: [A-Za-z0-9_,.(); ]* { return res.join("") }
 
 InfoRow
-  = _* id:Identifier ":" _ val:Value nl {return [id, val] }
+  = _* id:Identifier ":" _? val:Value? nl? {return [id, val] }
 
 InfoRows
   = rows:InfoRow* { var res ={}; for (var i in rows) { var row = rows[i]; res[row[0]] = row[1]; } return res }

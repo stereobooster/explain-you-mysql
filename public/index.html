@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -15,27 +17,7 @@
     <title>Explain you MySQL</title>
   </head>
   <body>
-    <div id="root">
-      <textarea id="input" class="input">
-
-      *************************** 1. row ***************************
-           id: 1
-  select_type: SIMPLE
-        table: some_table
-   partitions: NULL
-         type: index_merge
-possible_keys: a,b
-          key: a,b
-      key_len: 60,60
-          ref: NULL
-         rows: 169
-     filtered: 100.00
-        Extra: Using sort_union(a, b); Using where
-1 row in set, 1 warning (0.01 sec)
-
-</textarea>
-<div id="result" class="result"></div>
-    </div>
+    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
