@@ -54,7 +54,11 @@ const analyzeKey = (item) => (
 )
 
 const analyzePossibleKeys = (item) => (
-  item.possible_keys == 'NULL' ? <TooltipIcon value="warning" tooltip="Add index to table"/> : null
+  item.possible_keys == 'NULL' ? <TooltipIcon value="warning" tooltip="No potential indexes, add some"/> : null
+)
+
+const analyzeJoinType = (item) => (
+  item.type == 'ALL' ? warn : null
 )
 
 export default function ExplainTable(props) {
@@ -81,7 +85,7 @@ export default function ExplainTable(props) {
           <TableCell numeric>{item.id}</TableCell>
           <TooltipCell tooltip={explainSelectType[item.select_type]}>{item.select_type}</TooltipCell>
           <TableCell>{item.table}</TableCell>
-          <TooltipCell tooltip={explainJoinTypes[item.type]}>{item.type}</TooltipCell>
+          <TooltipCell tooltip={explainJoinTypes[item.type]}>{item.type}{analyzeJoinType(item)}</TooltipCell>
           <TableCell>{item.possible_keys}{analyzePossibleKeys(item)}</TableCell>
           <TableCell>{item.key}{analyzeKey(item)}</TableCell>
           <TableCell>{item.key_len}</TableCell>
