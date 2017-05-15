@@ -62,44 +62,49 @@ const analyzeJoinType = (item) => (
 )
 
 export default function ExplainTable(props) {
-  let source;
   try {
-    if (props.sql == "") {
-      return <div>Paste explain query results to see table</div>
+    if (props.sql === "") {
+      return <div>Paste explain query results ("EXPLAIN your_query\G") to see table</div>
     }
 
-    source = parse(props.sql).filter(x => x != null)[0];
+    let source = parse(props.sql).filter(x => x != null)
+    let rows = source[0]
+    let extra = source[1]
+    let warnings = extra && extra.warnings
 
-    return <Table selectable={false}>
-      <TableHead>
-        <TableCell numeric>id</TableCell>
-        <TooltipCell tooltip="The SELECT identifier">select_type</TooltipCell>
-        <TooltipCell tooltip="The table for the output row">table</TooltipCell>
-        <TooltipCell tooltip="The SELECT type">type</TooltipCell>
-        <TooltipCell tooltip="The possible indexes to choose">possible_keys</TooltipCell>
-        <TooltipCell tooltip="The index actually chosen">key</TooltipCell>
-        <TooltipCell tooltip="The length of the chosen key" numeric>key_len</TooltipCell>
-        <TooltipCell tooltip="The columns compared to the index">ref</TooltipCell>
-        <TooltipCell tooltip="Estimate of rows to be examined" numeric>rows</TooltipCell>
-        <TooltipCell tooltip="Percentage of rows filtered by table condition" numeric>filtered</TooltipCell>
-        <TooltipCell tooltip="Additional information">Extra</TooltipCell>
-      </TableHead>
-      {source.map((item, idx) => (
-        <TableRow key={idx}>
-          <TableCell numeric>{item.id}</TableCell>
-          <TooltipCell tooltip={explainSelectType[item.select_type]}>{item.select_type}</TooltipCell>
-          <TableCell>{item.table}</TableCell>
-          <TooltipCell tooltip={explainJoinTypes[item.type]}>{item.type}{analyzeJoinType(item)}</TooltipCell>
-          <TableCell>{item.possible_keys}{analyzePossibleKeys(item)}</TableCell>
-          <TableCell>{item.key}{analyzeKey(item)}</TableCell>
-          <TableCell>{item.key_len}</TableCell>
-          <TableCell>{item.ref}</TableCell>
-          <TableCell numeric>{item.rows}</TableCell>
-          <TableCell numeric>{item.filtered}{analyzeFiltered(item)}</TableCell>
-          <TableCell>{item.Extra}</TableCell>
-        </TableRow>
-      ))}
-    </Table>
+    return <div>
+      {warnings ? (<div>{warn} You have warnings use "SHOW WARNINGS\G" command to explore</div>) : null}
+      <Table selectable={false}>
+        <TableHead>
+          <TableCell numeric>id</TableCell>
+          <TooltipCell tooltip="The SELECT identifier">select_type</TooltipCell>
+          <TooltipCell tooltip="The table for the output row">table</TooltipCell>
+          <TooltipCell tooltip="The SELECT type">type</TooltipCell>
+          <TooltipCell tooltip="The possible indexes to choose">possible_keys</TooltipCell>
+          <TooltipCell tooltip="The index actually chosen">key</TooltipCell>
+          <TooltipCell tooltip="The length of the chosen key">key_len</TooltipCell>
+          <TooltipCell tooltip="The columns compared to the index">ref</TooltipCell>
+          <TooltipCell tooltip="Estimate of rows to be examined" numeric>rows</TooltipCell>
+          <TooltipCell tooltip="Percentage of rows filtered by table condition" numeric>filtered</TooltipCell>
+          <TooltipCell tooltip="Additional information">Extra</TooltipCell>
+        </TableHead>
+        {rows.map((item, idx) => (
+          <TableRow key={idx}>
+            <TableCell numeric>{item.id}</TableCell>
+            <TooltipCell tooltip={explainSelectType[item.select_type]}>{item.select_type}</TooltipCell>
+            <TableCell>{item.table}</TableCell>
+            <TooltipCell tooltip={explainJoinTypes[item.type]}>{item.type}{analyzeJoinType(item)}</TooltipCell>
+            <TableCell>{item.possible_keys}{analyzePossibleKeys(item)}</TableCell>
+            <TableCell>{item.key}{analyzeKey(item)}</TableCell>
+            <TableCell>{item.key_len}</TableCell>
+            <TableCell>{item.ref}</TableCell>
+            <TableCell numeric>{item.rows}</TableCell>
+            <TableCell numeric>{item.filtered}{analyzeFiltered(item)}</TableCell>
+            <TableCell>{item.Extra}</TableCell>
+          </TableRow>
+        ))}
+      </Table>
+    </div>
   } catch (e) {
     // console.log(e)
     return <div>{warn} Parse error: {e.message} At {e.location.start.line}:{e.location.start.column}</div>
