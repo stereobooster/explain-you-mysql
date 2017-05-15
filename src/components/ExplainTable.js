@@ -64,6 +64,10 @@ const analyzeJoinType = (item) => (
 export default function ExplainTable(props) {
   let source;
   try {
+    if (props.sql == "") {
+      return <div>Paste explain query results to see table</div>
+    }
+
     source = parse(props.sql).filter(x => x != null)[0];
 
     return <Table selectable={false}>

@@ -9,7 +9,7 @@ yarn run pegjs src/mysql_response.pegjs
 Deploy:
 
 ```sh
-npm run deploy
+yarn deploy
 ```
 
 - https://dev.mysql.com/doc/refman/5.7/en/show-warnings.html
@@ -19,3 +19,6 @@ npm run deploy
 - https://www.slideshare.net/ronaldbradford/capturing-analyzing-and-optimizing-mysql
 - https://www.sitepoint.com/using-explain-to-write-better-mysql-queries/
 
+TODO:
+
+- Description, title (Helmet?)

@@ -11,27 +11,13 @@ import Card from 'react-toolbox/lib/card/Card';
 
 import Bar from './components/Bar'
 import ExplainTable from './components/ExplainTable'
-
-const sql = `*************************** 1. row ***************************
-           id: 1
-  select_type: SIMPLE
-        table: some_table
-   partitions: NULL
-         type: index_merge
-possible_keys: a,b
-          key: a,b
-      key_len: 60,60
-          ref: NULL
-         rows: 169
-     filtered: 100.00
-        Extra: Using sort_union(a, b); Using where
-1 row in set, 1 warning (0.01 sec)`
+import ExampleQueriesBar from './components/ExampleQueriesBar'
 
 class App extends Component {
-  state = { sql: sql };
+  state = { sql: '' };
 
-  handleChange = (name, value) => {
-    this.setState({...this.state, [name]: value});
+  handleChange = (value) => {
+    this.setState({...this.state, sql: value});
   };
 
   render () {
@@ -41,10 +27,9 @@ class App extends Component {
           <Panel>
             <Bar />
             <Card>
-              <Input type='text' multiline label='Result of SQL explain' value={this.state.sql} onChange={this.handleChange.bind(this, 'sql')} />
-            </Card>
-            <Card>
+              <ExampleQueriesBar onChange={this.handleChange.bind(this)} />
               <ExplainTable sql={this.state.sql} />
+              <Input type='text' multiline label='Result of SQL explain' value={this.state.sql} onChange={this.handleChange.bind(this)} />
             </Card>
           </Panel>
         </Layout>

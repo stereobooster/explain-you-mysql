@@ -8,7 +8,7 @@ Identifier
   = res: [A-Za-z_0-9]* { return res.join("") }
 
 Value
-  = res: [A-Za-z0-9_,.(); ]* { return res.join("") }
+  = res: [A-Za-z0-9_,.();<> ]* { return res.join("") }
 
 InfoRow
   = _* id:Identifier ":" _? val:Value? nl? {return [id, val] }
