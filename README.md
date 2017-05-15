@@ -21,4 +21,8 @@ yarn deploy
 
 TODO:
 
+- Fix CSS
 - Description, title (Helmet?)
+- Key length note http://stackoverflow.com/questions/16568128/max-size-of-unique-index-in-mysql
+- visualy group subqueries by id
+
