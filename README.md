@@ -12,10 +12,11 @@ Deploy:
 yarn deploy
 ```
 
+- http://explainshell.com/
+- http://tatiyants.com/postgres-query-plan-visualization/
 - https://dev.mysql.com/doc/refman/5.7/en/show-warnings.html
 - https://dev.mysql.com/doc/refman/5.6/en/explain-output.html#explain-output-columns
 - http://use-the-index-luke.com/sql/explain-plan/mysql/operations
-- http://explainshell.com/
 - https://www.slideshare.net/ronaldbradford/capturing-analyzing-and-optimizing-mysql
 - https://www.sitepoint.com/using-explain-to-write-better-mysql-queries/
 
