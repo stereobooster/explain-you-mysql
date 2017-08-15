@@ -18,6 +18,7 @@ yarn deploy
 - http://showthedocs.com/
 
 ### Lint
+- http://www.shellcheck.net/
 - https://github.com/yandex/gixy
 - http://eslint.org/
 - https://github.com/bbatsov/rubocop
